@@ -32,6 +32,7 @@ def generate_launch_description():
             executable='order_publisher',
             name='order_publisher',
             output='screen',
+            parameters=[{'order_nrs': [1100002, 1100003, 1100004, 1100005, 1100006, 1100007, 1100008, 1100009, 1100010]}],
         )
 
     rviz = Node(

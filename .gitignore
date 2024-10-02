@@ -3,3 +3,4 @@ build/
 install/
 log/
 data/completed_orders.txt
+data/test_cases/test_circular/completed_orders.txt

@@ -9,10 +9,14 @@ class NextOrderPublisher : public rclcpp::Node
 {
 public:
     //std::vector<int> order_nrs = {1100002, 1100003, 1100004, 1100005, 1100006, 1100007, 1100008, 1100009, 1100010};
-    std::vector<int> order_nrs = {1000001};
+    std::vector<int64_t> order_nrs = {1000001};
     long unsigned count = 0;
     NextOrderPublisher() : Node("next_order_publisher")
     {
+        // Declare an integer array parameter with a default value
+        this->declare_parameter<std::vector<int64_t>>("order_nrs", {1000001});
+        this->get_parameter("order_nrs", order_nrs);
+
         RCLCPP_INFO(this->get_logger(), "Node %s started...", this->get_name());
         // Create a publisher for the nextOrder topic
         publisher_ = this->create_publisher<kbot_interfaces::msg::NextOrder>("nextOrder", 10);
