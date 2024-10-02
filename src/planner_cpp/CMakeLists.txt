@@ -12,19 +12,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(rosidl_default_generators REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED) 
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/NextOrder.msg"
-)
+find_package(kbot_interfaces REQUIRED)
 
 include_directories(include)
-
-
 
 add_executable(order_optimizer 
 src/orderOptimizer.cpp 
@@ -32,7 +26,7 @@ src/utils_parsing.cpp
 src/utils_shortest_path.cpp 
 src/utils.cpp)
 
-ament_target_dependencies(order_optimizer rclcpp geometry_msgs std_msgs)
+ament_target_dependencies(order_optimizer rclcpp geometry_msgs std_msgs kbot_interfaces)
 
 install(
   DIRECTORY include/

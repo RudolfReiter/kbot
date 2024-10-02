@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/ros/foxy/include",
+                "~/ros2/kbot/install/kbot_interfaces/include/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
