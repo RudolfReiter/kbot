@@ -1,0 +1,46 @@
+- id: 1
+  product: "Product 1"
+  parts:
+  - part: "Part A"
+    cx: 0.0
+    cy: 100.0
+  - part: "Part B"
+    cx: 0.0
+    cy: 200.0
+  - part: "Part C"
+    cx: 0.0
+    cy: 300.0
+  - part: "Part D"
+    cx: 0.0
+    cy: 400.0
+  - part: "Part E"
+    cx: 0.0
+    cy: 1000.0
+  - part: "Part F"
+    cx: 100.0
+    cy: 1000.0
+  - part: "Part G"
+    cx: 200.0
+    cy: 1000.0
+  - part: "Part H"
+    cx: 1000.0
+    cy: 1000.0
+- id: 2
+  product: "Product 2"
+  parts:
+  - part: "Part I"
+    cx: 1000.0
+    cy: 500.0
+  - part: "Part J"
+    cx: 1000.0
+    cy: 200.0
+  - part: "Part K"
+    cx: 1000.0
+    cy: 0.0
+  - part: "Part L"
+    cx: 500.0
+    cy: 0.0
+  - part: "Part M"
+    cx: 200.0
+    cy: 0.0
+
