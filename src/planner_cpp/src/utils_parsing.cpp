@@ -22,13 +22,15 @@ void Product::clear()
 string trim(const string &input)
 {
     string result;
-    bool open_quote = false;
+    bool open_quote = false;;
     for (char ch : input)
     {
-        if ((ch != ' ' && ch != '-') || open_quote == true)
+        //if ((ch != ' ' && ch != '-') || open_quote == true)
+        if ((ch != ' ') || open_quote == true)
         {
             result += ch;
         }
+
         if (ch == '"')
         {
             open_quote = !open_quote;
@@ -83,7 +85,7 @@ void parse_products(const string &file_path,
         }
 
         // Check for new product (id)
-        if (line.find("id:") == 0)
+        if (line.find("-id:") == 0)
         {
             // Start a new product
             // If we are already parsing a product, push it to the map
@@ -108,7 +110,7 @@ void parse_products(const string &file_path,
             in_parts_list = true;
         }
         // Parse part details within the parts list
-        else if (in_parts_list && line.find("part:") == 0)
+        else if (in_parts_list && line.find("-part:") == 0)
         {
             part_name = getStringBetweenQuotes(line);
             if (!part_name.empty())
@@ -142,7 +144,7 @@ void parse_products(const string &file_path,
 bool is_number(const std::string &s)
 {
     std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it))
+    while (it != s.end() && (std::isdigit(*it)||*it=='-'))
         ++it;
     return !s.empty() && it == s.end();
 }
@@ -174,7 +176,7 @@ void parse_orders(const string &file_path,
             continue;
 
         // Check for new product (id)
-        if (line.find("order:") == 0)
+        if (line.find("-order:") == 0)
         {
             if (found_order)
                 break;
@@ -196,7 +198,8 @@ void parse_orders(const string &file_path,
 
             else if (in_prod_list && is_number(line))
             {
-                order_tmp.product_nrs.insert(stoi(line));
+                //order_tmp.product_nrs.insert(abs(stoi(line)));
+                order_tmp.product_nrs.insert(abs(stoi(line)));
                 is_valid_entry = true;
             }
         }
