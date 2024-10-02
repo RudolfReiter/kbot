@@ -1,0 +1,21 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/planner_cpp.dir/src/orderOptimizer.cpp.o[0m
+[100%] [32m[1mLinking CXX executable planner_cpp[0m
+[100%] Built target planner_cpp
+-- Install configuration: ""
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/lib/planner_cpp/planner_cpp
+-- Set runtime path of "/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/lib/planner_cpp/planner_cpp" to ""
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/package_run_dependencies/planner_cpp
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/parent_prefix_path/planner_cpp
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/ament_prefix_path.sh
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/ament_prefix_path.dsv
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/path.sh
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/path.dsv
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.bash
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.sh
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.zsh
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.dsv
+-- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.dsv
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/packages/planner_cpp
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/cmake/planner_cppConfig.cmake
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/cmake/planner_cppConfig-version.cmake
+-- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.xml

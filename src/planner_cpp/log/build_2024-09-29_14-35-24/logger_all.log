@@ -1,0 +1,79 @@
+[0.203s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.203s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f20ccaff460>>, merge_install=False, metas=['./colcon.meta'], mixin=None, mixin_files=None, mixin_verb=('build',), packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=8, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f20ccaff460>, verb_name='build', verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7f20ccaffa90>)
+[0.352s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.353s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.353s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.353s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.353s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.353s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.353s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.366s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'planner_cpp'
+[0.366s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.366s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.366s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.366s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.366s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.383s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/rudolf/ros2/knappbot_ws/install
+[0.385s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 256 installed packages in /opt/ros/foxy
+[0.386s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_args' from command line to 'None'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_target' from command line to 'None'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.454s] Level 5:colcon.colcon_core.verb:set package 'planner_cpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.454s] DEBUG:colcon.colcon_core.verb:Building package 'planner_cpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp', 'merge_install': False, 'path': '/home/rudolf/ros2/knappbot_ws/src/planner_cpp', 'symlink_install': False, 'test_result_base': None}
+[0.454s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.455s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.455s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp' with build type 'ament_cmake'
+[0.456s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp'
+[0.457s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.457s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.458s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.465s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake /home/rudolf/ros2/knappbot_ws/src/planner_cpp -DCMAKE_INSTALL_PREFIX=/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp
+[1.531s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake /home/rudolf/ros2/knappbot_ws/src/planner_cpp -DCMAKE_INSTALL_PREFIX=/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp
+[1.568s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(planner_cpp)
+[1.571s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp' for CMake module files
+[1.571s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp' for CMake config files
+[1.572s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/bin'
+[1.572s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/lib/pkgconfig/planner_cpp.pc'
+[1.572s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/lib/python3.8/site-packages'
+[1.572s] Level 1:colcon.colcon_core.environment:checking '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/bin'
+[1.572s] INFO:colcon.colcon_core.shell:Creating package script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.ps1'
+[1.573s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.dsv'
+[1.574s] INFO:colcon.colcon_core.shell:Creating package script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.sh'
+[1.574s] INFO:colcon.colcon_core.shell:Creating package script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.bash'
+[1.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.zsh'
+[1.575s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/colcon-core/packages/planner_cpp)
+[1.586s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.586s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.586s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[1.586s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.592s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.592s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.592s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.601s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.602s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/local_setup.ps1'
+[1.603s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/_local_setup_util_ps1.py'
+[1.604s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/setup.ps1'
+[1.605s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/local_setup.sh'
+[1.605s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/_local_setup_util_sh.py'
+[1.606s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/setup.sh'
+[1.607s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/local_setup.bash'
+[1.607s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/setup.bash'
+[1.608s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/local_setup.zsh'
+[1.608s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/setup.zsh'

@@ -1,0 +1,68 @@
+[0.000000] (-) TimerEvent: {}
+[0.000480] (planner_cpp) JobQueued: {'identifier': 'planner_cpp', 'dependencies': OrderedDict()}
+[0.000666] (planner_cpp) JobStarted: {'identifier': 'planner_cpp'}
+[0.008588] (planner_cpp) JobProgress: {'identifier': 'planner_cpp', 'progress': 'cmake'}
+[0.008754] (planner_cpp) Command: {'cmd': ['/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake', '/home/rudolf/ros2/knappbot_ws/src/planner_cpp', '-DCMAKE_INSTALL_PREFIX=/home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp'], 'cwd': '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'rudolf'), ('LC_TIME', 'de_DE.UTF-8'), ('SSH_AGENT_PID', '2549'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib::/home/rudolf/gurobi/gurobi1001/linux64/lib'), ('HOME', '/home/rudolf'), ('OLDPWD', '/home/rudolf/ros2/knappbot_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'de_DE.UTF-8'), ('MANAGERPID', '2365'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1001/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator21a9d5db22c73a993ff0b42f64b396873'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '41987'), ('MANDATORY_PATH', '/usr/share/gconf/ubuntu.mandatory.path'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/rudolf/ros2/knappbot_ws/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'rudolf'), ('SUMO_HOME', '/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/install/sumo'), ('JOURNAL_STREAM', '9:60855'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('DEFAULTS_PATH', '/usr/share/gconf/ubuntu.default.path'), ('USERNAME', 'rudolf'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/foxy/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/rudolf/gurobi/gurobi1001/linux64/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/install/sumo/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/install/sumo/bin:/home/rudolf/gurobi/gurobi1001/linux64/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/install/sumo/bin:/home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/install/sumo/bin:/home/rudolf/gurobi/gurobi1001/linux64/bin'), ('SESSION_MANAGER', 'local/tpl15g1:@/tmp/.ICE-unix/2587,unix/tpl15g1:/tmp/.ICE-unix/2587'), ('INVOCATION_ID', '7122c4a86db44e319393c718f7647ed8'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'de_DE.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1001'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'de_DE.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1001/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1001/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/rudolf/ros2/knappbot_ws/install/planner_cpp:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('LC_NAME', 'de_DE.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:f09226c7-32d3-4449-b9b0-77b6783a944c'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'de_DE.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1001/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'de_DE.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('GUROBI_HOME', '/home/rudolf/gurobi/gurobi1001/linux64'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/foxy/lib/python3.8/site-packages'), ('LC_NUMERIC', 'de_DE.UTF-8'), ('LC_PAPER', 'de_DE.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/rudolf/ros2/knappbot_ws/install/planner_cpp:/opt/ros/foxy')]), 'shell': False}
+[0.081680] (planner_cpp) StdoutLine: {'line': b'-- The C compiler identification is GNU 9.4.0\n'}
+[0.100061] (-) TimerEvent: {}
+[0.135076] (planner_cpp) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 9.4.0\n'}
+[0.150093] (planner_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.200149] (-) TimerEvent: {}
+[0.201656] (planner_cpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.213599] (planner_cpp) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.213909] (planner_cpp) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.214356] (planner_cpp) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.223307] (planner_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.286066] (planner_cpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.298650] (planner_cpp) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.298956] (planner_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.299499] (planner_cpp) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.300241] (-) TimerEvent: {}
+[0.301551] (planner_cpp) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.304825] (planner_cpp) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at /opt/ros/foxy/share/ament_cmake_core/cmake/core/python.cmake:22 (find_package):\n'}
+[0.304956] (planner_cpp) StderrLine: {'line': b'  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules\n'}
+[0.305028] (planner_cpp) StderrLine: {'line': b'  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use\n'}
+[0.305092] (planner_cpp) StderrLine: {'line': b'  the cmake_policy command to set the policy and suppress this warning.\n'}
+[0.305152] (planner_cpp) StderrLine: {'line': b'\n'}
+[0.305211] (planner_cpp) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[0.305276] (planner_cpp) StderrLine: {'line': b'  /opt/ros/foxy/share/ament_cmake_core/cmake/core/all.cmake:53 (include)\n'}
+[0.305334] (planner_cpp) StderrLine: {'line': b'  /opt/ros/foxy/share/ament_cmake_core/cmake/ament_cmake_core-extras.cmake:17 (include)\n'}
+[0.305391] (planner_cpp) StderrLine: {'line': b'  /opt/ros/foxy/share/ament_cmake_core/cmake/ament_cmake_coreConfig.cmake:41 (include)\n'}
+[0.305455] (planner_cpp) StderrLine: {'line': b'  /opt/ros/foxy/share/ament_cmake/cmake/ament_cmake_export_dependencies-extras.cmake:15 (find_package)\n'}
+[0.305513] (planner_cpp) StderrLine: {'line': b'  /opt/ros/foxy/share/ament_cmake/cmake/ament_cmakeConfig.cmake:41 (include)\n'}
+[0.305572] (planner_cpp) StderrLine: {'line': b'  CMakeLists.txt:15 (find_package)\n'}
+[0.305629] (planner_cpp) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[0.305687] (planner_cpp) StderrLine: {'line': b'\x1b[0m\n'}
+[0.339005] (planner_cpp) StdoutLine: {'line': b'-- Found PythonInterp: /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/python3 (found suitable version "3.8.10", minimum required is "3") \n'}
+[0.339161] (planner_cpp) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/python3\n'}
+[0.400379] (-) TimerEvent: {}
+[0.500645] (-) TimerEvent: {}
+[0.514110] (planner_cpp) StdoutLine: {'line': b'-- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)\n'}
+[0.557615] (planner_cpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.563890] (planner_cpp) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.600773] (-) TimerEvent: {}
+[0.617501] (planner_cpp) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  \n'}
+[0.638787] (planner_cpp) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/foxy/include  \n'}
+[0.700904] (-) TimerEvent: {}
+[0.710173] (planner_cpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.766553] (planner_cpp) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)\n'}
+[0.767800] (planner_cpp) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.768581] (planner_cpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.800996] (-) TimerEvent: {}
+[0.818775] (planner_cpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed\n'}
+[0.819023] (planner_cpp) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads\n'}
+[0.856747] (planner_cpp) StdoutLine: {'line': b'-- Looking for pthread_create in pthreads - not found\n'}
+[0.856979] (planner_cpp) StdoutLine: {'line': b'-- Looking for pthread_create in pthread\n'}
+[0.901086] (-) TimerEvent: {}
+[0.906644] (planner_cpp) StdoutLine: {'line': b'-- Looking for pthread_create in pthread - found\n'}
+[0.907780] (planner_cpp) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.001190] (-) TimerEvent: {}
+[1.066036] (planner_cpp) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:21 (insall):\n'}
+[1.066272] (planner_cpp) StderrLine: {'line': b'  Unknown CMake command "insall".\n'}
+[1.066385] (planner_cpp) StderrLine: {'line': b'\n'}
+[1.066485] (planner_cpp) StderrLine: {'line': b'\x1b[0m\n'}
+[1.066583] (planner_cpp) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[1.075521] (planner_cpp) CommandEnded: {'returncode': 1}
+[1.101337] (-) TimerEvent: {}
+[1.120747] (planner_cpp) JobEnded: {'identifier': 'planner_cpp', 'rc': 1}
+[1.131388] (-) EventReactorShutdown: {}

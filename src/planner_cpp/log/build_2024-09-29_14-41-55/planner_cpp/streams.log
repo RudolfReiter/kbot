@@ -1,0 +1,22 @@
+[0.012s] Invoking command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake --build /home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp -- -j8 -l8
+[0.065s] [100%] Built target planner_cpp
+[0.072s] Invoked command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake --build /home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp -- -j8 -l8
+[0.155s] Invoking command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake --install /home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp
+[0.184s] -- Install configuration: ""
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/lib/planner_cpp/planner_cpp
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/package_run_dependencies/planner_cpp
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/parent_prefix_path/planner_cpp
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/ament_prefix_path.sh
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/ament_prefix_path.dsv
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/path.sh
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/environment/path.dsv
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.bash
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.sh
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.zsh
+[0.185s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/local_setup.dsv
+[0.185s] -- Installing: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.dsv
+[0.186s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/ament_index/resource_index/packages/planner_cpp
+[0.186s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/cmake/planner_cppConfig.cmake
+[0.186s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/cmake/planner_cppConfig-version.cmake
+[0.186s] -- Up-to-date: /home/rudolf/ros2/knappbot_ws/src/planner_cpp/install/planner_cpp/share/planner_cpp/package.xml
+[0.190s] Invoked command in '/home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /home/rudolf/PycharmProjects/merl_InteractiveSumoSimulation/venv_python2/bin/cmake --install /home/rudolf/ros2/knappbot_ws/src/planner_cpp/build/planner_cpp
