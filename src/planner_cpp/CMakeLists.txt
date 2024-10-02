@@ -16,6 +16,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED) 
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 find_package(kbot_interfaces REQUIRED)
 
 include_directories(include)
@@ -25,7 +26,7 @@ src/orderOptimizer.cpp
 src/utils_parsing.cpp 
 src/utils_shortest_path.cpp 
 src/utils.cpp)
-ament_target_dependencies(order_optimizer rclcpp geometry_msgs std_msgs kbot_interfaces)
+ament_target_dependencies(order_optimizer rclcpp geometry_msgs std_msgs kbot_interfaces visualization_msgs)
 
 add_executable(position_publisher src/posePublisher.cpp)
 ament_target_dependencies(position_publisher rclcpp geometry_msgs)

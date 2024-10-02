@@ -19,6 +19,7 @@
 
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "kbot_interfaces/msg/next_order.hpp"  
+#include <visualization_msgs/msg/marker_array.hpp>
 
 using namespace std;
 
@@ -43,9 +44,12 @@ private:
 
   void current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
   void next_order_callback(const kbot_interfaces::msg::NextOrder::SharedPtr msg);
+  void publish_path(void);
 
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr subscription_current_position_;
   rclcpp::Subscription<kbot_interfaces::msg::NextOrder>::SharedPtr subscription_next_order_;
+
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_array_pub_;
 
   std::mutex search_mutex;
 
