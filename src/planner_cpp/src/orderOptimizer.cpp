@@ -8,8 +8,6 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
   this->declare_parameter<std::string>("data_path", "/home/rudolf/ros2/kbot/data");
   this->get_parameter("data_path", path_order_data_);
 
-  RCLCPP_INFO(this->get_logger(), "Data path: %s", path_order_data_.c_str());
-
   RCLCPP_INFO(this->get_logger(), "Node %s started...", this->get_name());
 
   RCLCPP_INFO(this->get_logger(), "Parsing config file...");
@@ -40,6 +38,7 @@ void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::
   RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
               msg->order_id, msg->description.c_str());
   int order_nr = msg->order_id;
+  order_descr_ = msg->description;
 
   if (position_valid_)
   {
@@ -88,8 +87,10 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
 
   // double shortest_path = result.first;
   std::vector<string> path = result.second;
+  std::stringstream ss;
 
   RCLCPP_INFO(this->get_logger(), "Working on order %d (%s)", current_order_.order_nr, order_descr_.c_str());
+  ss << "Working on order " << current_order_.order_nr << " (" << order_descr_ << ")" << endl;
 
   for (auto &part : path)
   {
@@ -97,9 +98,14 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
     {
       RCLCPP_INFO(this->get_logger(), "Fetching part \'%s\' for product \'%s\' at x: %f, y: %f",
                   part.c_str(), product.c_str(), parts_[part].pos.x, parts_[part].pos.y);
+      ss << "Fetching part \'" << part << "\' for product \'" << product
+         << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
     }
   }
   RCLCPP_INFO(this->get_logger(), "Delivering to destination x: %f, y: %f", order.pos.x, order.pos.y);
+  ss << "Delivering to destination x: " << order.pos.x << ", y: " << order.pos.y << endl;
+
+  append_to_file(path_order_data_ + "/" + out_file, ss);
 }
 
 void OrderOptimizer::parse_config_file_()
@@ -125,11 +131,9 @@ bool OrderOptimizer::find_order(int order_nr)
     return false;
   }
 
-  // Vector to store threads
   std::vector<std::thread> threads;
   bool is_valid = false;
 
-  // Start a thread for each file
   for (const auto &file_name : file_names)
     threads.emplace_back(
         parse_orders,
@@ -139,18 +143,16 @@ bool OrderOptimizer::find_order(int order_nr)
         ref(current_order_),
         ref(search_mutex));
 
-  // Join all threads (wait for all threads to finish)
   for (auto &t : threads)
     if (t.joinable())
       t.join();
 
   if (is_valid)
-  {
-    cout << "Order found" << endl;
-    cout << "Order number: " << current_order_.order_nr << endl;
-    cout << "Order position: " << current_order_.pos.x << ", " << current_order_.pos.y << endl;
-    cout << "Product numbers: " << current_order_.product_nrs.size() << endl;
-  }
+    RCLCPP_INFO(this->get_logger(), "Order %d found. Containing %d products for delivery to position x=%f, y=%f",
+                current_order_.order_nr, current_order_.product_nrs.size(), current_order_.pos.x, current_order_.pos.y);
+  else
+    RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
+
   return is_valid;
 }
 

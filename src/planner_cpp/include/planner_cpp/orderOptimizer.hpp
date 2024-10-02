@@ -36,6 +36,7 @@ private:
   string path_order_data_ = "";
   string rel_path_config_file_ = "/configuration/products.yaml";
   string rel_path_orders_ = "/orders";
+  string out_file = "completed_orders.txt";
 
   unordered_map<string, Part> parts_;
   unordered_map<int, Product> products_;

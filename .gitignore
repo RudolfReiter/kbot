@@ -2,3 +2,4 @@ install/planner_cpp/include/planner_cpp/msg/detail/next_order__type_support.c
 build/
 install/
 log/
+data/completed_orders.txt

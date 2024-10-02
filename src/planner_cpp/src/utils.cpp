@@ -6,6 +6,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <set>
+#include <fstream>
 
 #include "planner_cpp/utils.hpp"
 
@@ -47,4 +48,17 @@ std::vector<std::string> get_all_files_in_directory(std::string& folder_path) {
 
     closedir(dir); // Close the directory
     return file_names;
+}
+
+void append_to_file(const std::string& filename, std::stringstream& ss) {
+    std::ofstream file;
+    file.open(filename, std::ios::app);  
+    
+    if (!file) {
+        std::cerr << "Error opening or creating the file." << std::endl;
+        return;
+    }
+
+    file << ss.str();
+    file.close();
 }

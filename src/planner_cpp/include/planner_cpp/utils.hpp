@@ -29,4 +29,6 @@ struct Order {
 
 std::vector<std::string> get_all_files_in_directory(std::string& ) ;
 
+void append_to_file(const std::string& , std::stringstream& );
+
 #endif // UTILS
