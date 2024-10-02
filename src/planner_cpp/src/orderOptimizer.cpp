@@ -1,6 +1,5 @@
 #include "planner_cpp/orderOptimizer.hpp"
-#include "geometry_msgs/msg/pose_stamped.hpp"
-#include "kbot_interfaces/msg/next_order.hpp"  
+
 
 using namespace std;
 using tuple_pos = std::tuple<double, double, string>;
@@ -13,24 +12,48 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
   parse_config_file_();
   RCLCPP_INFO(this->get_logger(), "Finished parsing config file with %d products and %d parts ...", products_.size(), parts_.size());
 
-  Position current_pos = {1000.0, 1000.0};
-  RCLCPP_INFO(this->get_logger(), "Current position x: %f, y: %f", current_pos.x, current_pos.y);
+  // Subscribe to currentPosition (PoseStamped message)
+  subscription_current_position_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+      "currentPosition", 10, std::bind(&OrderOptimizer::current_position_callback, this, std::placeholders::_1));
 
-  int order_nr = 1400004;
-  RCLCPP_INFO(this->get_logger(), "Looking for order %d ...", order_nr);
+  // Subscribe to nextOrder (NextOrder custom message)
+  subscription_next_order_ = this->create_subscription<kbot_interfaces::msg::NextOrder>(
+      "nextOrder", 10, std::bind(&OrderOptimizer::next_order_callback, this, std::placeholders::_1));
+  
+}
 
-  bool is_valid = find_order(order_nr);
+void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
+{
+    RCLCPP_INFO(this->get_logger(), "Received current position: x=%.2f, y=%.2f, z=%.2f",
+                msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
+    current_pos_.x = msg->pose.position.x;
+    current_pos_.y = msg->pose.position.y;
+    position_valid_ = true;
+}
 
-  if (is_valid)
-  {
-    RCLCPP_INFO(this->get_logger(), "Order %d found. Processing...", current_order_.order_nr);
-    get_order_(current_pos, current_order_);
-  }
-  else
-  {
-    RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
-  }
-  RCLCPP_INFO(this->get_logger(), "Finished...");
+void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::SharedPtr msg)
+{
+    RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
+                msg->order_id, msg->description.c_str());
+    int order_nr =msg->order_id;
+    
+    if (position_valid_)
+    {
+      bool is_valid = find_order(order_nr);
+      if (is_valid)
+      {
+        RCLCPP_INFO(this->get_logger(), "Order %d found. Processing...", current_order_.order_nr);
+        get_order_(current_pos_, current_order_);
+      }
+      else
+      {
+        RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
+      }
+    }
+    else
+    {
+      RCLCPP_INFO(this->get_logger(), "Current robot position not valid. Could not process order %d...", order_nr);
+    }
 }
 
 void OrderOptimizer::get_order_(Position &current_pos, Order &order)

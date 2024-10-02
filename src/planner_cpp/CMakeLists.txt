@@ -25,8 +25,15 @@ src/orderOptimizer.cpp
 src/utils_parsing.cpp 
 src/utils_shortest_path.cpp 
 src/utils.cpp)
-
 ament_target_dependencies(order_optimizer rclcpp geometry_msgs std_msgs kbot_interfaces)
+
+add_executable(position_publisher src/posePublisher.cpp)
+ament_target_dependencies(position_publisher rclcpp geometry_msgs)
+
+add_executable(order_publisher src/orderPublisher.cpp)
+ament_target_dependencies(order_publisher rclcpp kbot_interfaces)
+
+
 
 install(
   DIRECTORY include/
@@ -36,6 +43,8 @@ install(
 
 install(TARGETS
   order_optimizer
+  position_publisher
+  order_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 
