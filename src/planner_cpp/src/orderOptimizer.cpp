@@ -1,16 +1,21 @@
 #include "planner_cpp/orderOptimizer.hpp"
 
-
 using namespace std;
 using tuple_pos = std::tuple<double, double, string>;
 
 OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
 {
+  this->declare_parameter<std::string>("data_path", "/home/rudolf/ros2/kbot/data");
+  this->get_parameter("data_path", path_order_data_);
+
+  RCLCPP_INFO(this->get_logger(), "Data path: %s", path_order_data_.c_str());
+
   RCLCPP_INFO(this->get_logger(), "Node %s started...", this->get_name());
 
   RCLCPP_INFO(this->get_logger(), "Parsing config file...");
   parse_config_file_();
-  RCLCPP_INFO(this->get_logger(), "Finished parsing config file with %d products and %d parts ...", products_.size(), parts_.size());
+  RCLCPP_INFO(this->get_logger(), "Parsed config file of %d products and %d parts ...",
+              products_.size(), parts_.size());
 
   // Subscribe to currentPosition (PoseStamped message)
   subscription_current_position_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
@@ -19,41 +24,40 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
   // Subscribe to nextOrder (NextOrder custom message)
   subscription_next_order_ = this->create_subscription<kbot_interfaces::msg::NextOrder>(
       "nextOrder", 10, std::bind(&OrderOptimizer::next_order_callback, this, std::placeholders::_1));
-  
 }
 
 void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
 {
-    RCLCPP_INFO(this->get_logger(), "Received current position: x=%.2f, y=%.2f, z=%.2f",
-                msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
-    current_pos_.x = msg->pose.position.x;
-    current_pos_.y = msg->pose.position.y;
-    position_valid_ = true;
+  RCLCPP_INFO(this->get_logger(), "Received current position: x=%.2f, y=%.2f, z=%.2f",
+              msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
+  current_pos_.x = msg->pose.position.x;
+  current_pos_.y = msg->pose.position.y;
+  position_valid_ = true;
 }
 
 void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::SharedPtr msg)
 {
-    RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
-                msg->order_id, msg->description.c_str());
-    int order_nr =msg->order_id;
-    
-    if (position_valid_)
+  RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
+              msg->order_id, msg->description.c_str());
+  int order_nr = msg->order_id;
+
+  if (position_valid_)
+  {
+    bool is_valid = find_order(order_nr);
+    if (is_valid)
     {
-      bool is_valid = find_order(order_nr);
-      if (is_valid)
-      {
-        RCLCPP_INFO(this->get_logger(), "Order %d found. Processing...", current_order_.order_nr);
-        get_order_(current_pos_, current_order_);
-      }
-      else
-      {
-        RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
-      }
+      RCLCPP_INFO(this->get_logger(), "Order %d found. Processing...", current_order_.order_nr);
+      get_order_(current_pos_, current_order_);
     }
     else
     {
-      RCLCPP_INFO(this->get_logger(), "Current robot position not valid. Could not process order %d...", order_nr);
+      RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
     }
+  }
+  else
+  {
+    RCLCPP_INFO(this->get_logger(), "Current robot position not valid. Could not process order %d...", order_nr);
+  }
 }
 
 void OrderOptimizer::get_order_(Position &current_pos, Order &order)
@@ -102,7 +106,7 @@ void OrderOptimizer::parse_config_file_()
 {
   try
   {
-    parse_products(file_path, products_, parts_);
+    parse_products(path_order_data_ + rel_path_config_file_, products_, parts_);
   }
   catch (const std::exception &e)
   {
@@ -112,7 +116,7 @@ void OrderOptimizer::parse_config_file_()
 
 bool OrderOptimizer::find_order(int order_nr)
 {
-  std::string root_order_path = path_order_data_ + "/orders";
+  std::string root_order_path = path_order_data_ + rel_path_orders_;
   std::vector<std::string> file_names = get_all_files_in_directory(root_order_path);
 
   if (file_names.empty())
@@ -139,8 +143,7 @@ bool OrderOptimizer::find_order(int order_nr)
   for (auto &t : threads)
     if (t.joinable())
       t.join();
-    
-  
+
   if (is_valid)
   {
     cout << "Order found" << endl;

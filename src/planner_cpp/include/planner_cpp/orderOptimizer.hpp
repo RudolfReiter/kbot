@@ -33,9 +33,9 @@ private:
   Position current_pos_ = {0,0};
   bool position_valid_ = false;
 
-  string path_order_data_ = "/home/rudolf/ros2/kbot/data";
+  string path_order_data_ = "";
   string rel_path_config_file_ = "/configuration/products.yaml";
-  string file_path = path_order_data_ + rel_path_config_file_;
+  string rel_path_orders_ = "/orders";
 
   unordered_map<string, Part> parts_;
   unordered_map<int, Product> products_;
