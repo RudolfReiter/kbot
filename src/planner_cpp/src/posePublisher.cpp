@@ -19,8 +19,8 @@ private:
         auto message = geometry_msgs::msg::PoseStamped();
 
         message.header.stamp = this->get_clock()->now();
-        message.pose.position.x = 1000.0;
-        message.pose.position.y = 2000.0;
+        message.pose.position.x = 0.0;
+        message.pose.position.y = 0.0;
         message.pose.position.z = 0.0;
         message.pose.orientation.w = 1.0;
         message.pose.orientation.x = 0.0;

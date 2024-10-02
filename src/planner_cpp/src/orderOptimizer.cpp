@@ -24,7 +24,6 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
       "nextOrder", 10, std::bind(&OrderOptimizer::next_order_callback, this, std::placeholders::_1));
 
   marker_array_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("order_path", 10);
-
 }
 
 void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
@@ -115,7 +114,7 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
   ss << "Delivering to destination x: " << order.pos.x << ", y: " << order.pos.y << endl;
   append_to_file(path_order_data_ + "/" + out_file, ss);
 
-  publish_path();
+  publish_path(current_pos, order, path);
 }
 
 void OrderOptimizer::parse_config_file_()
@@ -169,61 +168,58 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-void OrderOptimizer::publish_path(void)
-    {
-        visualization_msgs::msg::MarkerArray marker_array;
+void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vector<string> &path)
+{
+  visualization_msgs::msg::MarkerArray deleter_array;
+  int id = 0;
 
-        visualization_msgs::msg::Marker amr_marker;
-        amr_marker.header.frame_id = "map";
-        amr_marker.header.stamp = this->get_clock()->now();
-        amr_marker.ns = "knappbot_position";
-        amr_marker.id = 0;
-        amr_marker.type = visualization_msgs::msg::Marker::CUBE;
-        amr_marker.action = visualization_msgs::msg::Marker::ADD;
-        amr_marker.pose.position.x = 0.0; 
-        amr_marker.pose.position.y = 0.0; 
-        amr_marker.pose.position.z = 0.5;
-        amr_marker.pose.orientation.w = 1.0;
-        amr_marker.scale.x = 0.5;
-        amr_marker.scale.y = 0.5;
-        amr_marker.scale.z = 0.5;
-        amr_marker.color.r = 0.0f;
-        amr_marker.color.g = 1.0f;
-        amr_marker.color.b = 0.0f;
-        amr_marker.color.a = 1.0f;
-        marker_array.markers.push_back(amr_marker);
+  visualization_msgs::msg::Marker delete_marker;
+  delete_marker.header.frame_id = "map"; // Frame ID must be valid
+  delete_marker.header.stamp = this->get_clock()->now();
+  delete_marker.ns = "marker_namespace"; // Use the same namespace as the markers you want to delete
+  delete_marker.action = visualization_msgs::msg::Marker::DELETEALL;
 
-        // Example part pickup locations (x, y positions)
-        std::vector<std::pair<float, float>> pickup_locations = {
-            {2.0, 1.0},
-            {3.0, 2.0},
-            {4.0, 1.5}};
+  // Publish the delete marker
+  deleter_array.markers.push_back(delete_marker);
+  marker_array_pub_->publish(deleter_array);
 
-        // Add markers for each pickup location (CYLINDER type)
-        int id = 1; // Start ID from 1 for pickup locations
-        for (const auto &location : pickup_locations)
-        {
-            visualization_msgs::msg::Marker pickup_marker;
-            pickup_marker.header.frame_id = "map";
-            pickup_marker.header.stamp = this->get_clock()->now();
-            pickup_marker.ns = "pickup_locations";
-            pickup_marker.id = id++;
-            pickup_marker.type = visualization_msgs::msg::Marker::CYLINDER;
-            pickup_marker.action = visualization_msgs::msg::Marker::ADD;
-            pickup_marker.pose.position.x = location.first;
-            pickup_marker.pose.position.y = location.second;
-            pickup_marker.pose.position.z = 0.5;
-            pickup_marker.pose.orientation.w = 1.0;
-            pickup_marker.scale.x = 0.3;
-            pickup_marker.scale.y = 0.3;
-            pickup_marker.scale.z = 0.7;
-            pickup_marker.color.r = 1.0f;
-            pickup_marker.color.g = 0.0f;
-            pickup_marker.color.b = 0.0f;
-            pickup_marker.color.a = 1.0f;
-            marker_array.markers.push_back(pickup_marker);
-        }
+  visualization_msgs::msg::MarkerArray marker_array;
+  visualization_msgs::msg::Marker marker = get_marker(current_pos.x, current_pos.y, 0, id++, "robot position");
+  marker_array.markers.push_back(marker);
 
-        // Publish the MarkerArray
-        marker_array_pub_->publish(marker_array);
-    }
+  marker = get_marker(order.pos.x, order.pos.y, 1, id++, "delivery position");
+  marker_array.markers.push_back(marker);
+
+  for (string part : path)
+  {
+    marker = get_marker(parts_[part].pos.x, parts_[part].pos.y, 2, id++, parts_[part].part_name);
+    marker_array.markers.push_back(marker);
+  }
+
+  marker = get_strip_marker(parts_[path[path.size() - 1]].pos.x,
+                            parts_[path[path.size() - 1]].pos.y,
+                            order.pos.x,
+                            order.pos.y,
+                            id++);
+  marker_array.markers.push_back(marker);
+
+  marker = get_strip_marker(parts_[path[0]].pos.x,
+                            parts_[path[0]].pos.y,
+                            current_pos.x,
+                            current_pos.y,
+                            id++);
+  marker_array.markers.push_back(marker);
+
+  for (unsigned long i = 0; i < path.size() - 1; i++)
+  {
+    marker = get_strip_marker(parts_[path[i]].pos.x,
+                              parts_[path[i]].pos.y,
+                              parts_[path[i + 1]].pos.x,
+                              parts_[path[i + 1]].pos.y,
+                              id++);
+    marker_array.markers.push_back(marker);
+  }
+
+  // Publish the MarkerArray
+  marker_array_pub_->publish(marker_array);
+}

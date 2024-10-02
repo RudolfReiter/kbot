@@ -26,9 +26,19 @@ def generate_launch_description():
             output='screen',
         )
 
+
+    rviz = Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', '/home/rudolf/ros2/kbot/src/kbot_launch/launch/rviz_conf.rviz'],
+            output='screen'
+        )
+
     
     ld.add_action(order_optimizer_node)
     ld.add_action(test_pose_publisher_node)
     ld.add_action(test_order_publisher_node)
+    ld.add_action(rviz)
 
     return ld

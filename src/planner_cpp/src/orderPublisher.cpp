@@ -8,14 +8,14 @@ using namespace std::chrono_literals;
 class NextOrderPublisher : public rclcpp::Node
 {
 public:
-    std::vector<int> order_nrs = {1100002, 1100003, 1100004, 1100005, 1100006};
+    std::vector<int> order_nrs = {1100002, 1100003, 1100004, 1100005, 1100006, 1100007, 1100008, 1100009, 1100010};
     long unsigned count = 0;
     NextOrderPublisher() : Node("next_order_publisher")
     {
         // Create a publisher for the nextOrder topic
         publisher_ = this->create_publisher<kbot_interfaces::msg::NextOrder>("nextOrder", 10);
         // Publish every 2 seconds
-        timer_ = this->create_wall_timer(10000ms, std::bind(&NextOrderPublisher::publish_order, this));
+        timer_ = this->create_wall_timer(2000ms, std::bind(&NextOrderPublisher::publish_order, this));
     }
 
 private:
