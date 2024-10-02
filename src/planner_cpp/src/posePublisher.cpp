@@ -9,8 +9,11 @@ class CurrentPositionPublisher : public rclcpp::Node
 public:
     CurrentPositionPublisher() : Node("current_position_publisher")
     {
+        RCLCPP_INFO(this->get_logger(), "Node %s started...", this->get_name());
         publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("currentPosition", 10);
-        timer_ = this->create_wall_timer(1000ms, std::bind(&CurrentPositionPublisher::publish_position, this));
+        timer_ = this->create_wall_timer(
+            1000ms,
+            std::bind(&CurrentPositionPublisher::publish_position, this));
     }
 
 private:
@@ -27,8 +30,11 @@ private:
         message.pose.orientation.y = 0.0;
         message.pose.orientation.z = 0.0;
 
-        RCLCPP_INFO(this->get_logger(), "Publishing current position: [x=%.2f, y=%.2f, z=%.2f]", 
-                    message.pose.position.x, message.pose.position.y, message.pose.position.z);
+        RCLCPP_INFO(this->get_logger(),
+                    "Publishing current position: [x=%.2f, y=%.2f, z=%.2f]",
+                    message.pose.position.x,
+                    message.pose.position.y,
+                    message.pose.position.z);
         publisher_->publish(message);
     }
 

@@ -13,15 +13,22 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
   RCLCPP_INFO(this->get_logger(), "Parsing config file...");
   parse_config_file_();
   RCLCPP_INFO(this->get_logger(), "Parsed config file of %d products and %d parts ...",
-              products_.size(), parts_.size());
+              products_.size(),
+              parts_.size());
 
   // Subscribe to currentPosition (PoseStamped message)
   subscription_current_position_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-      "currentPosition", 10, std::bind(&OrderOptimizer::current_position_callback, this, std::placeholders::_1));
+      "currentPosition", 10,
+      std::bind(&OrderOptimizer::current_position_callback,
+                this,
+                std::placeholders::_1));
 
   // Subscribe to nextOrder (NextOrder custom message)
   subscription_next_order_ = this->create_subscription<kbot_interfaces::msg::NextOrder>(
-      "nextOrder", 10, std::bind(&OrderOptimizer::next_order_callback, this, std::placeholders::_1));
+      "nextOrder", 10,
+      std::bind(&OrderOptimizer::next_order_callback,
+                this,
+                std::placeholders::_1));
 
   marker_array_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("order_path", 10);
 }
@@ -29,7 +36,10 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
 void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
 {
   RCLCPP_INFO(this->get_logger(), "Received current position: x=%.2f, y=%.2f, z=%.2f",
-              msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
+              msg->pose.position.x,
+              msg->pose.position.y,
+              msg->pose.position.z);
+
   current_pos_.x = msg->pose.position.x;
   current_pos_.y = msg->pose.position.y;
   position_valid_ = true;
@@ -39,6 +49,7 @@ void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::
 {
   RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
               msg->order_id, msg->description.c_str());
+
   int order_nr = msg->order_id;
   order_descr_ = msg->description;
 
@@ -52,14 +63,10 @@ void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::
       RCLCPP_INFO(this->get_logger(), "Order %d completed.", current_order_.order_nr);
     }
     else
-    {
       RCLCPP_INFO(this->get_logger(), "Order %d not found...", order_nr);
-    }
   }
   else
-  {
     RCLCPP_INFO(this->get_logger(), "Current robot position not valid. Could not process order %d...", order_nr);
-  }
 }
 
 void OrderOptimizer::get_order_(Position &current_pos, Order &order)
@@ -71,24 +78,20 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
   tuple_pos goal{order.pos.x, order.pos.y, "goal position"};
 
   for (auto &product_nr : order.product_nrs)
-  {
     for (auto &part : products_[product_nr].part_count)
     {
       all_parts.insert(get<0>(part));
       partid2productids[get<0>(part)].push_back(product_nr);
     }
-  }
+
   vector<string> all_parts_vec(all_parts.begin(), all_parts.end());
 
   vector<tuple_pos> intermediates;
   for (auto &part : all_parts_vec)
-  {
     intermediates.push_back({parts_[part].pos.x, parts_[part].pos.y, part});
-  }
 
   auto result = tsp_shortest_path(start, goal, intermediates);
 
-  // double shortest_path = result.first;
   std::vector<string> path = result.second;
   std::stringstream ss;
 
@@ -174,17 +177,23 @@ void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vect
   int id = 0;
 
   visualization_msgs::msg::Marker delete_marker;
-  delete_marker.header.frame_id = "map"; // Frame ID must be valid
+  delete_marker.header.frame_id = "map";
   delete_marker.header.stamp = this->get_clock()->now();
-  delete_marker.ns = "marker_namespace"; // Use the same namespace as the markers you want to delete
+  delete_marker.ns = "marker_namespace";
   delete_marker.action = visualization_msgs::msg::Marker::DELETEALL;
 
-  // Publish the delete marker
+  // Delete previous markers
   deleter_array.markers.push_back(delete_marker);
   marker_array_pub_->publish(deleter_array);
 
   visualization_msgs::msg::MarkerArray marker_array;
-  visualization_msgs::msg::Marker marker = get_marker(current_pos.x, current_pos.y, 0, id++, "robot position");
+  visualization_msgs::msg::Marker marker = get_marker(
+      current_pos.x,
+      current_pos.y,
+      0,
+      id++,
+      "robot position");
+
   marker_array.markers.push_back(marker);
 
   marker = get_marker(order.pos.x, order.pos.y, 1, id++, "delivery position");
@@ -196,30 +205,32 @@ void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vect
     marker_array.markers.push_back(marker);
   }
 
-  marker = get_strip_marker(parts_[path[path.size() - 1]].pos.x,
-                            parts_[path[path.size() - 1]].pos.y,
-                            order.pos.x,
-                            order.pos.y,
-                            id++);
+  marker = get_strip_marker(
+      parts_[path[path.size() - 1]].pos.x,
+      parts_[path[path.size() - 1]].pos.y,
+      order.pos.x,
+      order.pos.y,
+      id++);
   marker_array.markers.push_back(marker);
 
-  marker = get_strip_marker(parts_[path[0]].pos.x,
-                            parts_[path[0]].pos.y,
-                            current_pos.x,
-                            current_pos.y,
-                            id++);
+  marker = get_strip_marker(
+      parts_[path[0]].pos.x,
+      parts_[path[0]].pos.y,
+      current_pos.x,
+      current_pos.y,
+      id++);
   marker_array.markers.push_back(marker);
 
   for (unsigned long i = 0; i < path.size() - 1; i++)
   {
-    marker = get_strip_marker(parts_[path[i]].pos.x,
-                              parts_[path[i]].pos.y,
-                              parts_[path[i + 1]].pos.x,
-                              parts_[path[i + 1]].pos.y,
-                              id++);
+    marker = get_strip_marker(
+        parts_[path[i]].pos.x,
+        parts_[path[i]].pos.y,
+        parts_[path[i + 1]].pos.x,
+        parts_[path[i + 1]].pos.y,
+        id++);
     marker_array.markers.push_back(marker);
   }
 
-  // Publish the MarkerArray
   marker_array_pub_->publish(marker_array);
 }

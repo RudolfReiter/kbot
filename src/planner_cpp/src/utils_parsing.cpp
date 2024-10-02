@@ -1,13 +1,3 @@
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
-#include <unordered_map>
-#include <set>
-#include <mutex>
-#include <thread>
 #include "planner_cpp/utils_parsing.hpp"
 
 using namespace std;
@@ -64,7 +54,7 @@ string getStringBetweenQuotes(const string &input)
     return input.substr(first_quote + 1, second_quote - first_quote - 1);
 }
 
-// Function to parse the YAML-like configuration file
+// Function to parse the YAML-like configuration file for products
 void parse_products(const string &file_path,
                     unordered_map<int, Product> &products,
                     unordered_map<string, Part> &parts)
@@ -157,8 +147,7 @@ bool is_number(const std::string &s)
     return !s.empty() && it == s.end();
 }
 
-// Function to parse the YAML-like configuration file
-
+// Function to parse the YAML-like configuration file for orders
 void parse_orders(const string &file_path,
                   int order_nr,
                   bool &is_valid,
@@ -222,19 +211,3 @@ void parse_orders(const string &file_path,
     }
     file.close();
 }
-
-/*
-int main(int argc, char *argv[])
-{
-    string order_descr_ = "Example description 1";
-    string path_order_data_ = "/home/rudolf/ros2/knappbot_ws/data";
-    string rel_path_config_file_ = "/configuration/products.yaml";
-    string file_path = path_order_data_ + rel_path_config_file_;
-
-    unordered_map<string, Part> parts;
-    unordered_map<int, Product> products;
-
-    parse_products(file_path, products, parts);
-
-    return 0;
-}*/
