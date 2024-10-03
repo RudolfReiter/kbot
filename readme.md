@@ -50,7 +50,7 @@ This project adheres to the following key conditions:
 2. Change to workspace directory:
 
     ```bash
-    cd <your-workspace>
+    cd <path-to-your-workspace>
 
 3. Source the ros setup.bash. Either source in terminal or add to global .bashrc
 
@@ -66,29 +66,29 @@ This project adheres to the following key conditions:
 5. Source the bashrc of the KBot project install folder
 
     ```bash
-    source <your-workspace>/install/setup.bash
+    source <path-to-your-workspace>/install/setup.bash
 
 
 ## Launch Demonstration Examles
-To show the proper implementation of the node, three demonstrations can be launched. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ is started in order to vizualize the shortest path to the pick-up locations. The output files are stored in the directory `<your-workspace>/data` or in the directory of the launch file. 
+To show the proper implementation of the node, three demonstrations can be launched. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ is started in order to vizualize the shortest path to the pick-up locations. The output files are stored in the directory `<path-to-your-workspace>/data` or in the directory of the launch file. 
 
 - **Example 1**: Samples from the original list.
 
     In this example, several different order numbers (1100002 until 1100010) are published every two seconds. The optimized path is updated in RVIZ.
     ```bash
-    ros2 launch kbot_launch test1.launch.py data_path:=<your-workspace>/data
+    ros2 launch kbot_launch test1.launch.py data_path:=<path-to-your-workspace>/data
 
 - **Example 2**: Parts in square.
 
     In this example, one order with two products and 13 parts are published. The published parts are located on a square and the goal location is close to the starting location at an edge of the square. The example should vizualize an obvious case of the shortest path. The optimized path is updated in RVIZ.
     ```bash
-    ros2 launch kbot_launch test2.launch.py data_path:=<your-workspace>/data/test_cases/test_circular/
+    ros2 launch kbot_launch test2.launch.py data_path:=<path-to-your-workspace>/data/test_cases/test_circular/
 
 - **Example 3**: Random Parts.
 
     In this example, one order with two products and 13 randomly placed parts are published. The example should vizualize a more complex case of the shortest path. The optimized path is updated in RVIZ.
     ```bash
-    ros2 launch kbot_launch test3.launch.py data_path:=<your-workspace>/data/test_cases/test_random/
+    ros2 launch kbot_launch test3.launch.py data_path:=<path-to-your-workspace>/data/test_cases/test_random/
 
 ## Implementation Details
 In the following, some details of the implementation are listed.
@@ -97,7 +97,7 @@ In the following, some details of the implementation are listed.
   - Parts and products are stored in hash tables ("unordered_map" in C++) in order to achive fast look-up in O(n).
 
 - **Shortest path computation**:
-  - The computation of the shortest path resembles an instance of the travelling salesman problem, which is known to be NP complete. For problem sizes of up to 20 pick-up locations, a dynamic programming approach was implemented.
+  - The computation of the shortest path resembles an instance of the traveling salesman problem, which is known to be NP complete. For problem sizes of up to 20 pick-up locations, a dynamic programming approach was implemented.
 
 - **Output format of orders**:
   - The output file "completed_orders.txt" lists the individual actions in consecutive order. Particularly, for each picked up part, the number of parts and the related product are listed, in addition to the location.
