@@ -30,7 +30,7 @@ TEST(planner_cpp, shortest_path_1)
     tuple_pos start{0.0, 0.0, "start"}; 
     tuple_pos goal{10.0, 10.0, "end"}; 
 
-    std::vector<tuple_pos> intermediates1 = {
+    std::vector<tuple_pos> intermediates = {
         {10.0, 0.0, "5"},
         {10.0, 5.0, "6"},
         {5.0, 0.0, "4"},
@@ -38,7 +38,7 @@ TEST(planner_cpp, shortest_path_1)
         {2.0, 0.0, "2"},
         {1.0, 0.0, "1"},
     };
-    auto result = tsp_shortest_path(start, goal, intermediates1);
+    auto result = tsp_shortest_path(start, goal, intermediates);
     double shortest_path = result.first;
     ASSERT_EQ(20.0, shortest_path);
 }
@@ -48,7 +48,7 @@ TEST(planner_cpp, shortest_path_reverse_negative)
     tuple_pos start{10.0, 10.0, "start"}; 
     tuple_pos goal{-10.0, 0.0, "end"}; 
 
-    std::vector<tuple_pos> intermediates1 = {
+    std::vector<tuple_pos> intermediates = {
         {10.0, 0.0, "5"},
         {10.0, 5.0, "6"},
         {5.0, 0.0, "4"},
@@ -56,7 +56,7 @@ TEST(planner_cpp, shortest_path_reverse_negative)
         {2.0, 0.0, "2"},
         {1.0, 0.0, "1"},
     };
-    auto result = tsp_shortest_path(start, goal, intermediates1);
+    auto result = tsp_shortest_path(start, goal, intermediates);
     double shortest_path = result.first;
     ASSERT_EQ(30.0, shortest_path);
 }
@@ -67,7 +67,7 @@ TEST(planner_cpp, parsing_1)
     ASSERT_EQ("abc", trim(input));
 }
 
-TEST(planner_cpp, parsing_1)
+TEST(planner_cpp, parsing_2)
 {
     std::string input = " a b \"123\" c ";
     ASSERT_EQ("123", getStringBetweenQuotes(input));

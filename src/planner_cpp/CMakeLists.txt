@@ -54,6 +54,7 @@ if(BUILD_TESTING)
   ament_add_gtest(${PROJECT_NAME}_test test/tests.cpp 
   src/utils.cpp 
   src/utils_shortest_path.cpp
+  src/utils_parsing.cpp
 )
   
   target_include_directories(${PROJECT_NAME}_test PUBLIC
