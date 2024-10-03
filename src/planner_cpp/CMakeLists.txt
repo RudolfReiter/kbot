@@ -50,13 +50,17 @@ install(TARGETS
 )
 
 if(BUILD_TESTING)
+
+  set(TEST_DATA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/test/test_data")
+
   find_package(ament_cmake_gtest REQUIRED)
+
   ament_add_gtest(${PROJECT_NAME}_test test/tests.cpp 
   src/utils.cpp 
   src/utils_shortest_path.cpp
   src/utils_parsing.cpp
-)
-  
+  )
+  target_compile_definitions(${PROJECT_NAME}_test PRIVATE TEST_DATA_DIR="${TEST_DATA_DIR}")
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

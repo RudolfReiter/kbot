@@ -35,11 +35,12 @@ struct Product
 
 string trim(const string &);
 string getStringBetweenQuotes(const string &);
-void parse_products(const string &,
-                    unordered_map<int, Product> &,
-                    unordered_map<string, Part> &);
+void parse_products(
+    const string &,
+    unordered_map<int, Product> &,
+    unordered_map<string, Part> &);
+
 
 void parse_orders(const string &, int, bool &, Order &, mutex &);
-
 
 #endif // UTILS_PARSING_H
