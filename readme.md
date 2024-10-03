@@ -1,5 +1,5 @@
 # KBot ROS 2 Project
-![Title Image](https://github.com/RudolfReiter/kbot/data/header.png)
+![Title Image](https://github.com/RudolfReiter/kbot/tree/main/data/header.png)
 ## Overview
 
 The KBot project features an `OrderOptimizer`, which is a ROS 2 node designed to handle task optimization for Autonomous Mobile Robots (AMR). It subscribes to topics related to the robot's current position and orders, calculates the geometrically shortest path to collect necessary parts for an order, and publishes the path as a marker array. The goal of this node is to demonstrate practical coding skills, including threading, parsing files, and working within the ROS 2 ecosystem.
