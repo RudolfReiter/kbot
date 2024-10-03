@@ -35,3 +35,4 @@ visualization_msgs::msg::Marker get_marker(double, double, int, int, std::string
 visualization_msgs::msg::Marker get_strip_marker(double, double, double, double, int);
 
 #endif // UTILS
+
