@@ -76,22 +76,26 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
 
   tuple_pos start{current_pos.x, current_pos.y, "current position"};
   tuple_pos goal{order.pos.x, order.pos.y, "goal position"};
-
   for (auto &product_nr : order.product_nrs)
-    for (auto &part : products_[product_nr].part_count)
-    {
-      all_parts.insert(get<0>(part));
-      partid2productids[get<0>(part)].push_back(product_nr);
-    }
+      for (auto &part : products_[product_nr].part_count)
+      {
+        all_parts.insert(get<0>(part));
+        partid2productids[get<0>(part)].push_back(product_nr);
+      }
+    
 
   vector<string> all_parts_vec(all_parts.begin(), all_parts.end());
+  if (all_parts_vec.empty()){
+    RCLCPP_INFO(this->get_logger(), "No parts in stored products.", this->get_name());
+    return;
+  }
+
 
   vector<tuple_pos> intermediates;
   for (auto &part : all_parts_vec)
     intermediates.push_back({parts_[part].pos.x, parts_[part].pos.y, part});
 
   auto result = tsp_shortest_path(start, goal, intermediates);
-
   std::vector<string> path = result.second;
   std::stringstream ss;
 
@@ -101,17 +105,19 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
 
   for (auto &part : path)
   {
+    if (partid2productids.find(part) == partid2productids.end())
+      continue;
     for (auto &productid : partid2productids[part])
     {
-      n_products = products_[productid].part_count[part];
-      if (n_products > 1)
-        plural_part_str = "parts";
-      else
-        plural_part_str = "part";
+        n_products = products_[productid].part_count[part];
+        if (n_products > 1)
+          plural_part_str = "parts";
+        else
+          plural_part_str = "part";
 
-      ss << "Fetching " << n_products << " " << plural_part_str << " \'" << part
-         << "\' for product \'" << products_[productid].product_name
-         << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
+        ss << "Fetching " << n_products << " " << plural_part_str << " \'" << part
+           << "\' for product \'" << products_[productid].product_name
+           << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
     }
   }
   ss << "Delivering to destination x: " << order.pos.x << ", y: " << order.pos.y << endl;
@@ -128,8 +134,9 @@ void OrderOptimizer::parse_config_file_()
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    RCLCPP_ERROR(this->get_logger(), "Input file parsing error: %s. Shuting down node...", e.what() );
   }
+
 }
 
 bool OrderOptimizer::find_order(int order_nr)
@@ -162,17 +169,15 @@ bool OrderOptimizer::find_order(int order_nr)
   return is_valid;
 }
 
-int main(int argc, char *argv[])
-{
-  rclcpp::init(argc, argv);
-  auto node = make_shared<OrderOptimizer>();
-  rclcpp::spin(node);
-  rclcpp::shutdown();
-  return 0;
-}
+
 
 void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vector<string> &path)
 {
+  if (path.empty())
+  {
+    RCLCPP_INFO(this->get_logger(), "No path to publish.");
+    return;
+  }
   visualization_msgs::msg::MarkerArray deleter_array;
   int id = 0;
 
@@ -233,4 +238,13 @@ void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vect
   }
 
   marker_array_pub_->publish(marker_array);
+}
+
+int main(int argc, char *argv[])
+{
+  rclcpp::init(argc, argv);
+  auto node = make_shared<OrderOptimizer>();
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
 }
