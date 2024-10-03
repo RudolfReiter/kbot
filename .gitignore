@@ -3,4 +3,7 @@ build/
 install/
 log/
 **/completed_orders.txt
-data/test_cases/test_circular/completed_orders.txt
+.vscode/
+.vscode/settings.json
+.vscode/c_cpp_properties.json
+.vscode/tasks.json
