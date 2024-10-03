@@ -86,7 +86,7 @@ visualization_msgs::msg::Marker get_marker(double x, double y, int type, int id,
     }
     else if (type == 1)
     {
-        amr_marker.type = visualization_msgs::msg::Marker::CYLINDER;
+        amr_marker.type = visualization_msgs::msg::Marker::SPHERE;
         amr_marker.color.r = 1.0f;
         amr_marker.color.g = 0.0f;
         amr_marker.color.b = 0.0f;
@@ -94,7 +94,7 @@ visualization_msgs::msg::Marker get_marker(double x, double y, int type, int id,
     }
     else
     {
-        amr_marker.type = visualization_msgs::msg::Marker::SPHERE;
+        amr_marker.type = visualization_msgs::msg::Marker::CYLINDER;
         amr_marker.color.r = 0.0f;
         amr_marker.color.g = 0.0f;
         amr_marker.color.b = 1.0f;
@@ -119,7 +119,7 @@ visualization_msgs::msg::Marker get_strip_marker(double x_start, double y_start,
         line_strip.id = id;
         line_strip.type = visualization_msgs::msg::Marker::LINE_STRIP;
         line_strip.action = visualization_msgs::msg::Marker::ADD;
-        line_strip.scale.x = 20;  // Line width
+        line_strip.scale.x = 20;  
 
         // Define line color
         line_strip.color.r = 1.0f;
@@ -127,7 +127,7 @@ visualization_msgs::msg::Marker get_strip_marker(double x_start, double y_start,
         line_strip.color.b = 0.5f;
         line_strip.color.a = 1.0;
 
-        // Add points to the line (connecting the cube and cylinder)
+        // Add points to the line
         geometry_msgs::msg::Point p1, p2;
         p1.x = x_start; p1.y = y_start; p1.z = 0.0;
         p2.x = x_end; p2.y = y_end; p2.z = 0.0;

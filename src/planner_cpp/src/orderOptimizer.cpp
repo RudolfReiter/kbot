@@ -102,6 +102,7 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
   ss << "Working on order " << current_order_.order_nr << " (" << order_descr_ << ")" << endl;
   int n_products = 0;
   string plural_part_str = "part";
+  int counter = 1;
 
   for (auto &part : path)
   {
@@ -115,7 +116,7 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
         else
           plural_part_str = "part";
 
-        ss << "Fetching " << n_products << " " << plural_part_str << " \'" << part
+        ss << counter++ <<".  Fetching " << n_products << " " << plural_part_str << " \'" << part
            << "\' for product \'" << products_[productid].product_name
            << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
     }

@@ -1,5 +1,5 @@
 # KBot ROS 2 Project
-
+![Title Image](https://github.com/RudolfReiter/kbot/data/header.png)
 ## Overview
 
 The KBot project features an `OrderOptimizer`, which is a ROS 2 node designed to handle task optimization for Autonomous Mobile Robots (AMR). It subscribes to topics related to the robot's current position and orders, calculates the geometrically shortest path to collect necessary parts for an order, and publishes the path as a marker array. The goal of this node is to demonstrate practical coding skills, including threading, parsing files, and working within the ROS 2 ecosystem.
@@ -40,20 +40,22 @@ This project adheres to the following key conditions:
 
 ### Building the Package
 
-1. Clone the repository:
+
+
+1. Clone the repository to your workspace folder:
 
    ```bash
    git clone https://github.com/RudolfReiter/kbot.git
 
-2. Source the ros setup.bash. Either source in terminal or add to global .bashrc
-
-    ```bash
-    source /opt/ros/foxy/setup.bash
-
-3. Change directory to workspace folder
+2. Change to workspace directory:
 
     ```bash
     cd <your-workspace>
+
+3. Source the ros setup.bash. Either source in terminal or add to global .bashrc
+
+    ```bash
+    source /opt/ros/foxy/setup.bash
 
 4. Build the project and run the unit tests
 
@@ -68,7 +70,7 @@ This project adheres to the following key conditions:
 
 
 ## Launch Demonstration Examles
-To show the proper implementation of the node, three demonstrations can be launched. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ is started in order to vizualize the shortest path to the pick-up locations.
+To show the proper implementation of the node, three demonstrations can be launched. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ is started in order to vizualize the shortest path to the pick-up locations. The output files are stored in the directory `<your-workspace>/data` or in the directory of the launch file. 
 
 - **Example 1**: Samples from the original list.
 
@@ -89,3 +91,19 @@ To show the proper implementation of the node, three demonstrations can be launc
     ros2 launch kbot_launch test3.launch.py data_path:=<your-workspace>/data/test_cases/test_random/
 
 ## Implementation Details
+In the following, some details of the implementation are listed.
+
+- **Data structures to store products and parts**:
+  - Parts and products are stored in hash tables ("unordered_map" in C++) in order to achive fast look-up in O(n).
+
+- **Shortest path computation**:
+  - The computation of the shortest path resembles an instance of the travelling salesman problem, which is known to be NP complete. For problem sizes of up to 20 pick-up locations, a dynamic programming approach was implemented.
+
+- **Output format of orders**:
+  - The output file "completed_orders.txt" lists the individual actions in consecutive order. Particularly, for each picked up part, the number of parts and the related product are listed, in addition to the location.
+
+- **Publishing of the optimized path**:
+  - In addition to the pickup locations of the parts (blue cylinders) and the robot position (green cube), RVIZ visualizes the path (red) and the delivery location of the current order (blue sphere).
+
+- **Testing**:
+  - Several important components are unit tested with the gtest framework. 
