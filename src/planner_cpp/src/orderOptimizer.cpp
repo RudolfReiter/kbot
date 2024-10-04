@@ -16,24 +16,22 @@ OrderOptimizer::OrderOptimizer() : Node("orderOptimizer")
               products_.size(),
               parts_.size());
 
-  // Subscribe to currentPosition (PoseStamped message)
   subscription_current_position_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
       "currentPosition", 10,
-      std::bind(&OrderOptimizer::current_position_callback,
+      std::bind(&OrderOptimizer::current_position_callback_,
                 this,
                 std::placeholders::_1));
 
-  // Subscribe to nextOrder (NextOrder custom message)
   subscription_next_order_ = this->create_subscription<kbot_interfaces::msg::NextOrder>(
       "nextOrder", 10,
-      std::bind(&OrderOptimizer::next_order_callback,
+      std::bind(&OrderOptimizer::next_order_callback_,
                 this,
                 std::placeholders::_1));
 
   marker_array_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("order_path", 10);
 }
 
-void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
+void OrderOptimizer::current_position_callback_(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
 {
   RCLCPP_INFO(this->get_logger(), "Received current position: x=%.2f, y=%.2f, z=%.2f",
               msg->pose.position.x,
@@ -45,7 +43,7 @@ void OrderOptimizer::current_position_callback(const geometry_msgs::msg::PoseSta
   position_valid_ = true;
 }
 
-void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::SharedPtr msg)
+void OrderOptimizer::next_order_callback_(const kbot_interfaces::msg::NextOrder::SharedPtr msg)
 {
   RCLCPP_INFO(this->get_logger(), "Received next order: ID=%u, Description=\"%s\"",
               msg->order_id, msg->description.c_str());
@@ -55,7 +53,7 @@ void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::
 
   if (position_valid_)
   {
-    bool is_valid = find_order(order_nr);
+    bool is_valid = find_order_(order_nr);
     if (is_valid)
     {
       RCLCPP_INFO(this->get_logger(), "Order %d found. Processing...", current_order_.order_nr);
@@ -69,28 +67,46 @@ void OrderOptimizer::next_order_callback(const kbot_interfaces::msg::NextOrder::
     RCLCPP_INFO(this->get_logger(), "Current robot position not valid. Could not process order %d...", order_nr);
 }
 
+/**
+ * @brief Determines the optimal order path and fetches required parts for the given order.
+ *
+ * This function calculates the optimal route to retrieve all necessary parts for the provided order
+ * starting from the current position. It generates a list of parts required to fulfill the order,
+ * organizes them into an efficient path using a traveling salesman problem (TSP) algorithm,
+ * and then logs the steps for fetching parts and delivering the order to its destination.
+ * The path and order details are also saved to a file and published for visualization.
+ *
+ * @param current_pos The current position of the robot handling the order.
+ * @param order The order that contains the destination and list of product numbers.
+ */
 void OrderOptimizer::get_order_(Position &current_pos, Order &order)
 {
+  // Map to store part names to product ids
   unordered_map<string, vector<int>> partid2productids;
+
+  // Set used to store unique part names
   set<string> all_parts;
 
   tuple_pos start{current_pos.x, current_pos.y, "current position"};
   tuple_pos goal{order.pos.x, order.pos.y, "goal position"};
-  for (auto &product_nr : order.product_nrs)
-      for (auto &part : products_[product_nr].part_count)
-      {
-        all_parts.insert(get<0>(part));
-        partid2productids[get<0>(part)].push_back(product_nr);
-      }
-    
 
+  // Collect all orders and parts in the order
+  for (auto &product_nr : order.product_nrs)
+    for (auto &part : products_[product_nr].part_count)
+    {
+      all_parts.insert(get<0>(part));
+      partid2productids[get<0>(part)].push_back(product_nr);
+    }
+
+  // Check if there are any parts in the stored products
   vector<string> all_parts_vec(all_parts.begin(), all_parts.end());
-  if (all_parts_vec.empty()){
+  if (all_parts_vec.empty())
+  {
     RCLCPP_INFO(this->get_logger(), "No parts in stored products.", this->get_name());
     return;
   }
 
-
+  // Create vector with positions of all parts and compute shortest path
   vector<tuple_pos> intermediates;
   for (auto &part : all_parts_vec)
     intermediates.push_back({parts_[part].pos.x, parts_[part].pos.y, part});
@@ -99,6 +115,7 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
   std::vector<string> path = result.second;
   std::stringstream ss;
 
+  // Log the steps for fetching parts
   ss << "Working on order " << current_order_.order_nr << " (" << order_descr_ << ")" << endl;
   int n_products = 0;
   string plural_part_str = "part";
@@ -110,21 +127,22 @@ void OrderOptimizer::get_order_(Position &current_pos, Order &order)
       continue;
     for (auto &productid : partid2productids[part])
     {
-        n_products = products_[productid].part_count[part];
-        if (n_products > 1)
-          plural_part_str = "parts";
-        else
-          plural_part_str = "part";
+      n_products = products_[productid].part_count[part];
+      if (n_products > 1)
+        plural_part_str = "parts";
+      else
+        plural_part_str = "part";
 
-        ss << counter++ <<".  Fetching " << n_products << " " << plural_part_str << " \'" << part
-           << "\' for product \'" << products_[productid].product_name
-           << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
+      ss << counter++ << ".  Fetching " << n_products << " " << plural_part_str << " \'" << part
+         << "\' for product \'" << products_[productid].product_name
+         << "\' at x: " << parts_[part].pos.x << ", y: " << parts_[part].pos.y << endl;
     }
   }
   ss << "Delivering to destination x: " << order.pos.x << ", y: " << order.pos.y << endl;
   append_to_file(path_order_data_ + "/" + out_file, ss);
 
-  publish_path(current_pos, order, path);
+  // Publish the path for visualization
+  publish_path_(current_pos, order, path);
 }
 
 void OrderOptimizer::parse_config_file_()
@@ -135,12 +153,22 @@ void OrderOptimizer::parse_config_file_()
   }
   catch (const std::exception &e)
   {
-    RCLCPP_ERROR(this->get_logger(), "Input file parsing error: %s. Shuting down node...", e.what() );
+    RCLCPP_ERROR(this->get_logger(), "Input file parsing error: %s. Shuting down node...", e.what());
   }
-
 }
-
-bool OrderOptimizer::find_order(int order_nr)
+/**
+ * @brief Searches for an order by its order number in all files in the order folder.
+ *
+ * This function scans through all the order files located in the specified order data directory,
+ * searching for the order with the given order number. It creates multiple threads to parallelize
+ * the parsing of the files. If the order is found, the details are loaded into
+ * the `current_order_` member, and the search result is returned. The function logs whether any
+ * order files were found and whether the order was located.
+ *
+ * @param order_nr The order number to search for.
+ * @return `true` if the order is found, `false` otherwise.
+ */
+bool OrderOptimizer::find_order_(int order_nr)
 {
   std::string root_order_path = path_order_data_ + rel_path_orders_;
   std::vector<std::string> file_names = get_all_files_in_directory(root_order_path);
@@ -151,6 +179,7 @@ bool OrderOptimizer::find_order(int order_nr)
     return false;
   }
 
+  // Start threads for each individual file
   std::vector<std::thread> threads;
   bool is_valid = false;
 
@@ -161,7 +190,7 @@ bool OrderOptimizer::find_order(int order_nr)
         order_nr,
         ref(is_valid),
         ref(current_order_),
-        ref(search_mutex));
+        ref(search_mutex_));
 
   for (auto &t : threads)
     if (t.joinable())
@@ -170,9 +199,7 @@ bool OrderOptimizer::find_order(int order_nr)
   return is_valid;
 }
 
-
-
-void OrderOptimizer::publish_path(Position &current_pos, Order &order, std::vector<string> &path)
+void OrderOptimizer::publish_path_(Position &current_pos, Order &order, std::vector<string> &path)
 {
   if (path.empty())
   {

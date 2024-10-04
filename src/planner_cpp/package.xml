@@ -3,9 +3,9 @@
 <package format="3">
   <name>planner_cpp</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="reiter11@gmx.at">rudolf</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Exemplary order optimizer utilizing different ROS and C++ concepts</description>
+  <maintainer email="rudolf.reiter@imtek.uni-freiburg.de">rudolf</maintainer>
+  <license>None</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   

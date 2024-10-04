@@ -42,20 +42,20 @@ private:
   unordered_map<string, Part> parts_;
   unordered_map<int, Product> products_;
 
-  void current_position_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
-  void next_order_callback(const kbot_interfaces::msg::NextOrder::SharedPtr msg);
-  void publish_path(Position &, Order &, std::vector<string> &);
+  void current_position_callback_(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
+  void next_order_callback_(const kbot_interfaces::msg::NextOrder::SharedPtr msg);
+  void publish_path_(Position &, Order &, std::vector<string> &);
 
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr subscription_current_position_;
   rclcpp::Subscription<kbot_interfaces::msg::NextOrder>::SharedPtr subscription_next_order_;
 
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_array_pub_;
 
-  std::mutex search_mutex;
+  std::mutex search_mutex_;
 
   void get_order_(Position &, Order &);
   void parse_config_file_();
-  bool find_order(int);
+  bool find_order_(int);
 
   rclcpp::TimerBase::SharedPtr timer_;
 };
