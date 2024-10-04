@@ -70,7 +70,7 @@ This project adheres to the following key conditions:
 
 
 ## Launch Demonstration Examples
-To show the proper implementation of the node, three demonstrations can be launched. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ is started in order to vizualize the shortest path to the pick-up locations. The output files are stored in the directory `<path-to-your-workspace>/data` or in the directory of the launch file. 
+Three demonstrations can be launched to show the proper implementation of the node. For each demonstration, two publishers of the current position and the order number are launched. Moreover, RVIZ was started to visualize the shortest path to the pick-up locations. The output files are stored in the directory `<path-to-your-workspace>/data` or the directory of the launch file. 
 
 - **Example 1**: Samples from the original list.
 
@@ -94,7 +94,7 @@ To show the proper implementation of the node, three demonstrations can be launc
 In the following, some details of the implementation are listed.
 
 - **Data structures to store products and parts**:
-  - Parts and products are stored in hash tables ("unordered_map" in C++) in order to achieve fast look-up in O(n).
+  - Parts and products are stored in hash tables in order to achieve fast look-up in O(n).
 
 - **Shortest path computation**:
   - The computation of the shortest path resembles an instance of the traveling salesman problem, which is known to be NP-complete. A dynamic programming approach was implemented for problem sizes of up to 20 pick-up locations.
